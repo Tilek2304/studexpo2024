@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Motor Control</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f0f8ff;
+        margin-top: 50px;
+    }
+    h1 {
+        color: #4a86e8;
+    }
+    form {
+        margin: 15px;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 10px;
+        display: inline-block;
+    }
+    button {
+        width: 80px;
+        height: 80px;
+        margin: 5px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .forward, .left, .right {
+        background-color: #4CAF50; /* Green */
+    }
+    .backward {
+        background-color: #f44336; /* Red */
+    }
+    .stop {
+        background-color: #ffeb3b; /* Yellow */
+    }
+    .stop-all {
+        background-color: #e91e63; /* Pink */
+        width: 100%;
+        font-size: 20px;
+    }
+    input[type="text"] {
+        width: 50px;
+        font-size: 16px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    <h1>Motor Control Panel</h1>
+    {% for motor in ['Motor1', 'Motor2', 'Motor3', 'Motor4'] %}
+    <form method="post" action="/control">
+        <label><strong>{{ motor }}</strong></label><br>
+        <button type="submit" name="action" value="forward" class="forward">&#9658;</button>
+        <button type="submit" name="action" value="backward" class="backward">&#9668;</button>
+        <input type="hidden" name="motor" value="{{ motor }}">
+        <input type="text" name="speed" value="50"><br>
+        <button type="submit" name="action" value="stop" class="stop">&#9724;</button>
+    </form>
+    {% endfor %}
+    <form method="post" action="/rotate">
+        <button type="submit" name="action" value="left" class="left">&#8592;</button>
+        <button type="submit" name="action" value="right" class="right">&#8594;</button>
+        <input type="text" name="speed" value="50">
+    </form>
+    <form method="post" action="/stop">
+        <button type="submit" class="stop-all">Stop All Motors</button>
+    </form>
+</body>
+</html>
